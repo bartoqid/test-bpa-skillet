@@ -1,0 +1,217 @@
+# skillet preamble information used by panhandler
+# ---------------------------------------------------------------------
+# unique snippet name
+name: Example-skillet-snipet
+# label used for menu selection
+label: Example-skillet-snippet
+description: Test skillet BPA
+
+# type of device configuration
+# common types are panorama, panos, and template
+# https://github.com/PaloAltoNetworks/panhandler/blob/develop/docs/metadata_configuration.rst
+type: panos
+# preload static or default-based templates
+extends:
+
+# grouping of like snippets for dynamic menu creation in panhandler
+labels:
+  collection:
+    - BPA
+
+# ---------------------------------------------------------------------
+# end of preamble section
+
+# variables section
+# ---------------------------------------------------------------------
+# variables used in the configuration templates
+# type_hint defines the form field used by panhandler
+# type_hints can be text, ip_address, or dropdown
+variables:
+  - name: hostname
+    description: Firewall hostname
+    default: myFirewall
+    type_hint: text
+  - name: choices
+    description: sample dropdown list
+    default: choices
+    type_hint: dropdown
+    dd_list:
+      - key: option1
+        value: option1
+      - key: option2
+        value: option2
+# ---------------------------------------------------------------------
+# end of variables section
+
+# snippets section
+# ---------------------------------------------------------------------
+# snippets used for api configuration including xpath and element as file name
+# files will load in the order listed
+# NOTE: The following snippets are auto-generated and ordered automatically.
+# Changing the content of the snippet may be necessary, but do NOT change the order
+
+# There is a variable called snippets that we can use to auto-generate this section for us
+snippets:
+
+  - name: entry-600635
+    xpath: /config/devices/entry[@name="localhost.localdomain"]/vsys/entry[@name="vsys1"]/profiles/virus
+    element: |-
+        <entry name="AV-BPA">
+                        <decoder>
+                          <entry name="ftp">
+                            <action>drop</action>
+                            <wildfire-action>default</wildfire-action>
+                            <mlav-action>default</mlav-action>
+                          </entry>
+                          <entry name="http">
+                            <action>drop</action>
+                            <wildfire-action>default</wildfire-action>
+                            <mlav-action>default</mlav-action>
+                          </entry>
+                          <entry name="http2">
+                            <action>drop</action>
+                            <wildfire-action>default</wildfire-action>
+                            <mlav-action>default</mlav-action>
+                          </entry>
+                          <entry name="imap">
+                            <action>drop</action>
+                            <wildfire-action>default</wildfire-action>
+                            <mlav-action>default</mlav-action>
+                          </entry>
+                          <entry name="pop3">
+                            <action>drop</action>
+                            <wildfire-action>default</wildfire-action>
+                            <mlav-action>default</mlav-action>
+                          </entry>
+                          <entry name="smb">
+                            <action>drop</action>
+                            <wildfire-action>default</wildfire-action>
+                            <mlav-action>default</mlav-action>
+                          </entry>
+                          <entry name="smtp">
+                            <action>drop</action>
+                            <wildfire-action>default</wildfire-action>
+                            <mlav-action>default</mlav-action>
+                          </entry>
+                        </decoder>
+                        <packet-capture>yes</packet-capture>
+                        <mlav-engine-filebased-enabled>
+                          <entry name="Windows Executables">
+                            <mlav-policy-action>disable</mlav-policy-action>
+                          </entry>
+                          <entry name="PowerShell Script 1">
+                            <mlav-policy-action>disable</mlav-policy-action>
+                          </entry>
+                          <entry name="PowerShell Script 2">
+                            <mlav-policy-action>disable</mlav-policy-action>
+                          </entry>
+                        </mlav-engine-filebased-enabled>
+                      </entry>
+
+  - name: entry-916721
+    xpath: /config/devices/entry[@name="localhost.localdomain"]/vsys/entry[@name="vsys1"]/profiles/spyware
+    element: |-
+        <entry name="AS-BPA">
+                        <botnet-domains>
+                          <lists>
+                            <entry name="Autofocus-Domain">
+                              <action>
+                                <allow/>
+                              </action>
+                              <packet-capture>disable</packet-capture>
+                            </entry>
+                            <entry name="default-paloalto-dns">
+                              <action>
+                                <sinkhole/>
+                              </action>
+                              <packet-capture>disable</packet-capture>
+                            </entry>
+                          </lists>
+                          <dns-security-categories>
+                            <entry name="pan-dns-sec-benign">
+                              <log-level>default</log-level>
+                              <action>default</action>
+                              <packet-capture>disable</packet-capture>
+                            </entry>
+                            <entry name="pan-dns-sec-cc">
+                              <log-level>default</log-level>
+                              <action>default</action>
+                              <packet-capture>disable</packet-capture>
+                            </entry>
+                            <entry name="pan-dns-sec-ddns">
+                              <log-level>default</log-level>
+                              <action>default</action>
+                              <packet-capture>disable</packet-capture>
+                            </entry>
+                            <entry name="pan-dns-sec-grayware">
+                              <log-level>default</log-level>
+                              <action>default</action>
+                              <packet-capture>disable</packet-capture>
+                            </entry>
+                            <entry name="pan-dns-sec-malware">
+                              <log-level>default</log-level>
+                              <action>default</action>
+                              <packet-capture>disable</packet-capture>
+                            </entry>
+                            <entry name="pan-dns-sec-phishing">
+                              <log-level>default</log-level>
+                              <action>default</action>
+                              <packet-capture>disable</packet-capture>
+                            </entry>
+                            <entry name="pan-dns-sec-recent">
+                              <log-level>default</log-level>
+                              <action>default</action>
+                              <packet-capture>disable</packet-capture>
+                            </entry>
+                          </dns-security-categories>
+                          <sinkhole>
+                            <ipv4-address>pan-sinkhole-default-ip</ipv4-address>
+                            <ipv6-address>::1</ipv6-address>
+                          </sinkhole>
+                        </botnet-domains>
+                        <rules>
+                          <entry name="Block-Critical-High">
+                            <action>
+                              <drop/>
+                            </action>
+                            <severity>
+                              <member>critical</member>
+                              <member>high</member>
+                            </severity>
+                            <threat-name>any</threat-name>
+                            <category>any</category>
+                            <packet-capture>extended-capture</packet-capture>
+                          </entry>
+                        </rules>
+                      </entry>
+
+  - name: entry-314477
+    xpath: /config/devices/entry[@name="localhost.localdomain"]/vsys/entry[@name="vsys1"]/profiles/vulnerability
+    element: |-
+        <entry name="IPS-BPA">
+                        <rules>
+                          <entry name="Block-High-Critical">
+                            <action>
+                              <drop/>
+                            </action>
+                            <vendor-id>
+                              <member>any</member>
+                            </vendor-id>
+                            <severity>
+                              <member>critical</member>
+                              <member>high</member>
+                            </severity>
+                            <cve>
+                              <member>any</member>
+                            </cve>
+                            <threat-name>any</threat-name>
+                            <host>any</host>
+                            <category>any</category>
+                            <packet-capture>disable</packet-capture>
+                          </entry>
+                        </rules>
+                      </entry>
+
+
+# ---------------------------------------------------------------------
+# end of snippets section
